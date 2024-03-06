@@ -1,0 +1,30 @@
+Problem Statement : 
+Given a string s of length n, find all the possible subsequences of the string s in lexicographically-sorted order.
+
+Solution Code :
+class Solution
+{
+    public List<String> AllPossibleStrings(String s)
+    {// Code here
+        List<String> ans = new ArrayList<>();
+        
+        findPossibleSubsequence(s, 0, ans, new StringBuilder(""));
+        Collections.sort(ans);
+        return ans;
+    }
+    private static void findPossibleSubsequence(String s, int i, List<String> ans, 
+    StringBuilder sbr){
+        if(i==s.length()){
+            if(sbr.length()!=0){
+                ans.add(sbr.toString());
+            }
+            return;
+        }
+        // Include i th character
+        sbr.append(s.charAt(i));
+        findPossibleSubsequence(s, i+1, ans, sbr);
+        sbr.deleteCharAt(sbr.length()-1);
+        // Exclude i th character
+        findPossibleSubsequence(s, i+1, ans, sbr);
+    }
+}
