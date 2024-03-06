@@ -1,0 +1,18 @@
+Problem Statement :
+Given an array of strings arr[] of length n representing non-negative integers, arrange them in a manner, such that, after 
+concatanating them in order, it results in the largest possible number. Since the result may be very large, return it as a string.
+
+Solution Code :
+class Solution {
+    String printLargest(int n, String[] arr) {
+        // code here
+        Arrays.sort(arr,
+            (a,b) -> (a+b).compareTo(b+a)
+        );
+        StringBuilder sbr = new StringBuilder();
+        for(int i = n-1; i>=0; i--){
+            sbr.append(arr[i]);
+        }
+        return sbr.toString();
+    }
+}
