@@ -1,0 +1,27 @@
+Problem Statement : 
+Given an 0-indexed array of integers arr[] of size n, find its peak element. 
+An element is considered to be peak if it's value is greater than or equal to the values of its adjacent elements (if they exist).
+Note: The output will be 1 if the index returned by your function is correct; otherwise, it will be 0.
+
+Solution Code :
+class Solution
+{
+	// Function to find the peak element
+	// arr[]: input array
+	// n: size of array a[]
+	public int peakElement(int[] arr,int n)
+    {
+       //add code here.
+       int s = 0, e = n-1;
+       while(s<=e){
+           int m = (s+e)/2;
+           if((m==0 || arr[m-1]<=arr[m]) && (m==n-1 || arr[m]>=arr[m+1]))
+                return m;
+            else if(m-1>=0 && arr[m-1] > arr[m])
+                e = m-1;
+            else 
+                s = m+1;
+       }
+       return -1;
+    }
+}
