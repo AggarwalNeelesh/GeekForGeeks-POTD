@@ -1,0 +1,67 @@
+Problem Statement :
+Given two strings, one is a text string and other is a pattern string. The task is to print the indexes of all the occurences of pattern string in the text string. 
+For printing, Starting Index of a string should be taken as 1. The strings will only contain lowercase English alphabets ('a' to 'z').
+
+Solution Code :
+class Solution
+{
+    
+    ArrayList<Integer> search(String pattern, String text)
+    {
+        int m = pattern.length(), n = text.length();
+        /*
+        Step 1: Choose a suitable base and a modulus:
+        Choose a base ‘b‘, 
+        which is often the size of the character set (e.g., 256 for ASCII characters).
+        */
+        int q = 11, d = 256;
+        int hashText = 0, hashPattern = 0;
+        
+        // Step 2 : Set an initial hash value ‘hash‘ to 0.
+        int hash = 1;
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < m - 1; i++)
+            hash = (hash * d) % q;
+        
+        /*
+        Step 3: Calculate the initial hash value for the pattern and text:
+
+        Iterate over each character in the pattern from left to right.
+        For each character ‘c’ at position ‘i’, 
+        calculate its contribution to the hash value and add it to ‘hash‘.
+        This gives you the hash value for the entire pattern and text.
+        */
+        for(int i=0;i<m;i++){
+            hashText = (d * hashText + text.charAt(i)) % q;
+            hashPattern = (d * hashPattern + pattern.charAt(i)) % q;
+        }
+        
+        /*
+        Step 4: Slide the pattern over the text:
+        */
+        for(int i=0; i<=n-m;i++){
+            // Step 5: Compare hash values:
+            if(hashText == hashPattern){
+                boolean match = true;
+                for(int j=0;j<m;j++)
+                    if(text.charAt(i+j)!=pattern.charAt(j)){
+                        match = false;
+                        break;
+                    }
+                //  it’s a potential match.
+                if(match == true){
+                    ans.add(i+1);
+                }
+            }
+            if (i < n-m) {
+                // Step 6: Update the hash value for each subsequent substring:
+                hashText = (d * (hashText - text.charAt(i) * hash) + text.charAt(i + m))% q;
+ 
+                if (hashText < 0)
+                    hashText = (hashText + q);
+            }
+        }
+        return ans;
+    }
+}
