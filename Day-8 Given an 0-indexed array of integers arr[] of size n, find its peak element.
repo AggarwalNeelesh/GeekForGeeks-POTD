@@ -1,0 +1,16 @@
+Problem Statement :
+Given an array of n integers. Find the first element that occurs atleast k number of times. If no such element exists in the array, then expect the answer to be -1.
+
+Solution Code :
+class Solution
+{
+    public int firstElementKTime(int n, int k, int[] arr) { 
+        HashMap<Integer, Integer> hs = new HashMap<>();
+        for(int x: arr){
+            hs.put(x, hs.getOrDefault(x, 0) + 1);
+            if(hs.get(x) == k)
+                return x;
+        }
+        return -1;
+    } 
+}
