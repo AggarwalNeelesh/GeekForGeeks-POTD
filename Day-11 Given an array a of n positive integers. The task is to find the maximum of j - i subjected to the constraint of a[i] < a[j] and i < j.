@@ -1,0 +1,30 @@
+Problem Statement :
+Given an array a of n positive integers. The task is to find the maximum of j - i subjected to the constraint of a[i] < a[j] and i < j.
+
+Solution Code :
+class Solution{
+    
+    // A[]: input array
+    // N: size of array
+    // Function to find the maximum index difference.
+    static int maxIndexDiff(int arr[], int n) { 
+        
+        // Your code here
+        int min[] = new int[n];
+        min[0] = arr[0];
+        for(int i=1;i<n;i++){
+            min[i] = Math.min(min[i-1], arr[i]);
+        }
+        int i=n-1;
+        int j=n-1;
+        int ans = 0;
+        while(i>=0 && j>=0){
+            if(arr[j]>=min[i]){
+                ans = Math.max(ans, j-i);
+                i--;
+            }else
+                j--;
+        }
+        return ans;
+    }
+}
