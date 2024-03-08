@@ -1,0 +1,42 @@
+Problem Statement :
+Given a string s which contains only lower alphabetic characters, check if it is possible to remove at most one character 
+from this string in such a way that frequency of each distinct character becomes same in the string. Return true if it is possible to do else return false.
+
+Note: The driver code print 1 if the value returned is true, otherwise 0.
+
+Solution Code :
+
+class Solution {
+    boolean sameFreq(String s) {
+        // code here
+        int freq[] = new int[26];
+        for(char c: s.toCharArray())
+            freq[c-'a']++;
+    
+    
+    HashMap<Integer, Integer> hs = new HashMap<>();
+    for(int x: freq){
+        if(x!=0)
+            hs.put(x, hs.getOrDefault(x, 0)+1);
+    }
+    
+    if(hs.size()>=3)return false;
+    if(hs.size()==1)return true;
+    int a=0, b=0, x=0, y=0;
+    
+    for(int k: hs.keySet())
+        if(a==0){
+            a = k;
+            b = hs.get(k);
+        }else{
+            x = k;
+            y = hs.get(k);
+        }
+    
+    if((a==1 && b==1) || (x==1 && y==1))return true;
+    if(Math.abs(a-x) >1 || (b>1 && y>1))return false;
+    if((a>x && b==1) || (x>a && y==1))return true;
+    
+    return false;
+    }
+}
