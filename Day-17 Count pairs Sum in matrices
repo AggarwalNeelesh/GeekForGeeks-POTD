@@ -1,0 +1,33 @@
+Problem Statement :
+Given two sorted matrices mat1 and mat2 of size n x n of elements. 
+Each matrix contains numbers arranged in strictly ascending order, with each row sorted from left to right, and the last element of a row being smaller than 
+the first element of the next row. 
+You're given a target value, x, your task is to find and count all pairs {a, b} such that a is from mat1 and b is from mat2 where sum of a and b is equal to x.
+
+Solution Code :
+class Solution {
+    int countPairs(int mat1[][], int mat2[][], int n, int x) {
+        // code here
+        int ct = 0;
+        int i=0, j=0, p=n-1, q=n-1;
+        while(i<=n-1 && p>=0){
+            if(mat1[i][j]+mat2[p][q] == x){
+                ct++;
+                j++;
+                q--;
+            }
+            else if(mat1[i][j]+mat2[p][q] > x)q--;
+            else j++;
+            
+            if(j==n){
+                i++;
+                j=0;
+            }
+            if(q==-1){
+                p--;
+                q = n-1;
+            }
+        }
+        return ct;
+    }
+}
