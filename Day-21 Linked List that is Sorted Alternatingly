@@ -1,0 +1,51 @@
+Problem Statement :
+You are given a Linked list of size n. The list is in alternating ascending and descending orders. Sort the given linked list in non-decreasing order.
+
+Solution Code :
+
+class Solution {
+    
+   public Node sort(Node head){
+        //your code here, return the head of the sorted list
+        if(head==null || head.next==null)return head;
+        Node head1 = null, head2 = null, temp1 = null, temp2 = null;
+        while(head!=null){
+            if(head1==null){
+                head1 = head;
+                temp1 = head1;
+            }else{
+                temp1.next = head;
+                temp1 = temp1.next;
+            }
+            head = head.next;
+            
+            if(head==null)break;
+            
+            if(head2==null){
+                head2 = head;
+                temp2 = head2;
+            }else{
+                temp2.next = head;
+                temp2 = temp2.next;
+            }
+            head = head.next;
+        }
+        
+        temp2.next = null;
+        head2 = reverse(head2);
+        temp1.next = head2;
+        return head1;
+   }
+    private static Node reverse(Node head){
+       Node prev = null, curr = head, nex = head.next;
+       while(curr!=null){
+           curr.next = prev;
+           prev = curr;
+           curr = nex;
+           if(nex!=null)nex = curr.next;
+       }
+       return prev;
+   }
+
+
+}
