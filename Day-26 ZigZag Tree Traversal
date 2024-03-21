@@ -1,0 +1,40 @@
+Problem Statement :
+Given a binary tree with n nodes. Find the zig-zag level order traversal of the binary tree.
+
+Solution Code :
+class GFG
+{
+    //Function to store the zig zag order traversal of tree in a list.
+	ArrayList<Integer> zigZagTraversal(Node root)
+	{
+	    //Add your code here.
+	    ArrayList<Integer> ans = new ArrayList<>();
+	    Queue<Node> q = new LinkedList<>();
+	    q.add(root);
+	    while(!q.isEmpty()){
+	        
+	        // Normal Level
+	        int n = q.size();
+	        while(n-->0){
+	            Node x = q.remove(); // Remove
+	            ans.add(x.data);     // Work
+	            if(x.left!=null)q.add(x.left);  //Add Children
+	            if(x.right!=null)q.add(x.right);
+	        }
+	        
+	        //Reverse Level
+	        n = q.size();
+	        List<Integer> temp = new ArrayList<>();
+	        while(n-->0){
+	            Node x = q.remove(); // Remove
+	            temp.add(x.data);   // Work
+	            if(x.left!=null)q.add(x.left); //Add Children
+	            if(x.right!=null)q.add(x.right);
+	        }
+	        // Reversing level before adding in answer.
+	        Collections.reverse(temp);
+	        ans.addAll(temp);
+	    }
+	    return ans;
+	}
+}
