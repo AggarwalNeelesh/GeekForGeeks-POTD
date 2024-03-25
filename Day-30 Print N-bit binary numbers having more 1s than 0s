@@ -1,0 +1,29 @@
+Problem Statement: 
+Given a positive integer n. Your task is to generate a string list of all n-bit binary numbers where, for any prefix of the number,
+there are more or an equal number of 1's than 0's. The numbers should be sorted in decreasing order of magnitude.
+
+Solution Code :
+class Solution {
+    ArrayList<String> NBitBinary(int N) {
+        // code here
+        ArrayList<String> ans = new ArrayList<>();
+        recur(ans, 0, 0, N, new StringBuilder());
+        return ans;
+    }
+    private static void recur(ArrayList<String> ans, int zero, int one, int n, StringBuilder sbr){
+        if(zero+one==n){
+            ans.add(sbr.toString());
+            return;
+        }
+        
+        sbr.append("1");
+        recur(ans, zero, one+1, n, sbr);
+        sbr.deleteCharAt(sbr.length()-1);
+        
+        if(zero+1<=one){
+            sbr.append("0");
+            recur(ans, zero+1, one, n, sbr);
+            sbr.deleteCharAt(sbr.length()-1);
+        }
+    }
+}
