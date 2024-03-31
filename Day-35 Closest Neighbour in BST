@@ -1,0 +1,23 @@
+Problem Statement :
+Given the root of a binary search tree and a number n, find the greatest number in the binary search tree that is less than or equal to n. 
+
+Solution Code :
+class Solution {
+    public static int findMaxForN(Node root, int n) {
+        // Add your code here.
+        int ans = -1;
+        while(root!=null){
+            if(root.key > n)
+                root = root.left;
+            else if(root.key==n)
+                return n;
+            else{
+                
+                if(ans == -1 || n - root.key < Math.abs(ans-n))
+                    ans = root.key;
+                root = root.right;
+            }
+        }
+        return ans;
+    }
+}
